@@ -7,38 +7,18 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/style.css"> <!-- Make sure to create style.css for custom styling -->
     <style>
-        /* Custom styling */
-        body {
-            background-color: #f8f9fa; /* Light grey background */
-        }
-        .container {
-            max-width: 600px; /* Limit width for better readability */
-        }
+        /* Add any additional custom styling here */
         .card {
             border: 2px solid #007bff; /* Blue border for the card */
-            border-radius: 10px; /* Rounded corners */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
-            transition: box-shadow 0.3s ease;
-        }
-        .card:hover {
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow on hover */
         }
         .card-header {
             background-color: #007bff; /* Blue header */
             color: white;
-            padding: 20px;
-            border-top-left-radius: 10px; /* Rounded corners only on top */
-            border-top-right-radius: 10px;
-        }
-        .card-body {
-            padding: 20px;
+            padding: 10px;
         }
         .btn-primary {
             background-color: #007bff; /* Blue button */
             border-color: #007bff;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 18px;
         }
         .btn-primary:hover {
             background-color: #0056b3; /* Darker blue on hover */
@@ -46,11 +26,6 @@
         }
         .text-monospace {
             font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-            word-break: break-all; /* Break long addresses/keys */
-        }
-        .footer {
-            background-color: #f8f9fa; /* Light grey footer */
-            border-top: 1px solid #dee2e6; /* Light border on top */
         }
     </style>
 </head>
@@ -58,62 +33,27 @@
     <div class="container mt-5">
         <div class="card text-center">
             <div class="card-header">
-                <h1 class="mb-0">Generate Ethereum Wallet</h1>
+                <h1>Generate Ethereum Wallet</h1>
             </div>
             <div class="card-body">
-                <button id="generateWallet" class="btn btn-primary btn-lg">Generate Wallet</button>
+                <button id="generateWallet" class="btn btn-primary">Generate Wallet</button>
                 <div id="walletInfo" class="mt-4" style="display: none;">
-                    <p><strong>Address:</strong></p>
-                    <p><span id="address" class="text-monospace"></span></p>
-                    <p class="mt-3"><strong>Private Key:</strong></p>
-                    <p><span id="privateKey" class="text-monospace"></span></p>
-                    <div class="mt-4">
-                        <button id="copyAddress" class="btn btn-outline-primary btn-sm mr-2">Copy Address</button>
-                        <button id="copyPrivateKey" class="btn btn-outline-primary btn-sm">Copy Private Key</button>
-                    </div>
+                    <p><strong>Address:</strong> <span id="address" class="text-monospace"></span></p>
+                    <p><strong>Private Key:</strong> <span id="privateKey" class="text-monospace"></span></p>
+                    <button id="copyAddress" class="btn btn-outline-primary btn-sm">Copy Address</button>
+                    <button id="copyPrivateKey" class="btn btn-outline-primary btn-sm">Copy Private Key</button>
                 </div>
             </div>
         </div>
     </div>
-    <footer class="footer mt-5 py-3">
-        <div class="container text-muted text-center">
-            &copy; 2024 furidngrt
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container text-center">
+            <span class="text-muted">&copy; 2024 furidngrt</span>
         </div>
     </footer>
-
-    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="/script.js"></script>
-
-    <!-- JavaScript for wallet generation and interactions -->
-    <script>
-        document.getElementById('generateWallet').addEventListener('click', function() {
-            // Simulate wallet generation
-            var address = '0x7a4962c4e2c2a5aB36f1A9C0b491c1A5bF35401d'; // Replace with actual generated address
-            var privateKey = 'e38c4987d4452b2ce519fb81c05d1a101f0e7c50b5c0c50e7ff13c8b165f0f89'; // Replace with actual generated private key
-
-            // Display wallet info
-            document.getElementById('address').textContent = address;
-            document.getElementById('privateKey').textContent = privateKey;
-            document.getElementById('walletInfo').style.display = 'block';
-        });
-
-        // Copy functionality
-        document.getElementById('copyAddress').addEventListener('click', function() {
-            var address = document.getElementById('address');
-            navigator.clipboard.writeText(address.textContent)
-                .then(() => alert('Address copied to clipboard'))
-                .catch(err => console.error('Could not copy text: ', err));
-        });
-
-        document.getElementById('copyPrivateKey').addEventListener('click', function() {
-            var privateKey = document.getElementById('privateKey');
-            navigator.clipboard.writeText(privateKey.textContent)
-                .then(() => alert('Private Key copied to clipboard'))
-                .catch(err => console.error('Could not copy text: ', err));
-        });
-    </script>
+    <script src="/script.js"></script> <!-- Include script.js for wallet generation and interactions -->
 </body>
 </html>

@@ -159,5 +159,35 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="/script.js"></script> <!-- Include script.js for wallet generation and interactions -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Select element yang akan di-copy
+        var copyAddressBtn = document.getElementById('copyAddress');
+        var copyPrivateKeyBtn = document.getElementById('copyPrivateKey');
+        var addressElement = document.getElementById('address');
+        var privateKeyElement = document.getElementById('privateKey');
+
+        // Add event listener untuk copy address
+        copyAddressBtn.addEventListener('click', function () {
+            copyToClipboard(addressElement.innerText);
+        });
+
+        // Add event listener untuk copy private key
+        copyPrivateKeyBtn.addEventListener('click', function () {
+            copyToClipboard(privateKeyElement.innerText);
+        });
+
+        // Fungsi untuk copy text ke clipboard
+        function copyToClipboard(text) {
+            var textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('Copied to clipboard');
+        }
+    });
+</script>
 </body>
 </html>

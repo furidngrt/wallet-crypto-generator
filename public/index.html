@@ -9,17 +9,34 @@
     <link rel="stylesheet" href="/style.css"> <!-- Make sure to create style.css for custom styling -->
     <style>
         /* Add any additional custom styling here */
+        body {
+            background-color: #f8f9fa; /* Light grey background */
+        }
         .card {
             border: 2px solid #007bff; /* Blue border for the card */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            transition: box-shadow 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow on hover */
         }
         .card-header {
             background-color: #007bff; /* Blue header */
             color: white;
-            padding: 10px;
+            padding: 20px;
+            border-top-left-radius: 10px; /* Rounded corners only on top */
+            border-top-right-radius: 10px;
+        }
+        .card-body {
+            padding: 20px;
         }
         .btn-primary {
             background-color: #007bff; /* Blue button */
             border-color: #007bff;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 18px;
         }
         .btn-primary:hover {
             background-color: #0056b3; /* Darker blue on hover */
@@ -27,6 +44,18 @@
         }
         .text-monospace {
             font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            word-break: break-all; /* Break long addresses/keys */
+        }
+        .footer {
+            background-color: #007bff; /* Blue footer */
+            color: white; /* White text */
+            padding: 20px 0; /* Padding top and bottom */
+        }
+        .footer a {
+            color: white; /* White links */
+        }
+        .footer a:hover {
+            text-decoration: underline; /* Underline on hover */
         }
     </style>
 </head>
@@ -34,24 +63,30 @@
     <div class="container mt-5">
         <div class="card text-center">
             <div class="card-header">
-                <h1>Generate Ethereum Wallet</h1>
+                <h1 class="mb-0">Generate Ethereum Wallet</h1>
             </div>
             <div class="card-body">
-                <button id="generateWallet" class="btn btn-primary">Generate Wallet</button>
+                <button id="generateWallet" class="btn btn-primary btn-lg">Generate Wallet</button>
                 <div id="walletInfo" class="mt-4" style="display: none;">
-                    <p><strong>Address:</strong> <span id="address" class="text-monospace"></span></p>
-                    <p><strong>Private Key:</strong> <span id="privateKey" class="text-monospace"></span></p>
-                    <button id="copyAddress" class="btn btn-outline-primary btn-sm">Copy Address</button>
-                    <button id="copyPrivateKey" class="btn btn-outline-primary btn-sm">Copy Private Key</button>
+                    <p><strong>Address:</strong></p>
+                    <p><span id="address" class="text-monospace"></span></p>
+                    <p class="mt-3"><strong>Private Key:</strong></p>
+                    <p><span id="privateKey" class="text-monospace"></span></p>
+                    <div class="mt-4">
+                        <button id="copyAddress" class="btn btn-outline-primary btn-sm mr-2">Copy Address</button>
+                        <button id="copyPrivateKey" class="btn btn-outline-primary btn-sm">Copy Private Key</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <footer class="footer mt-auto py-3 bg-light">
+    <footer class="footer mt-5">
         <div class="container text-center">
-            <span class="text-muted">&copy; 2024 furidngrt</span>
+            <p class="mb-0">&copy; 2024 <a href="#" class="text-white">furidngrt</a> | Powered by <a href="#" class="text-white">Crypto Wallet Generator</a></p>
         </div>
     </footer>
+
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

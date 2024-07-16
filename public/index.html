@@ -58,24 +58,30 @@
             text-decoration: underline; /* Underline on hover */
         }
 
-        /* Adjust navbar color to match footer */
-        .navbar-dark.bg-dark {
-            background-color: #007bff !important; /* Blue navbar */
+        /* Navbar styling */
+        .navbar {
+            background-color: #343a40; /* Darker background */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
         }
-        .navbar-dark .navbar-nav .nav-link {
+        .navbar-brand {
+            color: #007bff; /* Blue brand text */
+            font-weight: bold;
+        }
+        .navbar-nav .nav-link {
             color: white; /* White links */
+            transition: color 0.3s;
         }
-        .navbar-dark .navbar-nav .nav-link:hover {
-            color: #f8f9fa; /* Light grey on hover */
+        .navbar-nav .nav-link:hover {
+            color: #007bff; /* Blue on hover */
         }
-        .navbar-dark .navbar-toggler {
+        .navbar-toggler {
             border-color: white; /* White color for toggler icon */
         }
     </style>
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="#">Crypto Wallet Generator</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

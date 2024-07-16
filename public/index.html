@@ -5,23 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Wallet Generator</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/style.css"> <!-- Make sure to create style.css for custom styling -->
+    <link rel="stylesheet" href="/style.css">
     <style>
-        /* Add any additional custom styling here */
+        /* Custom styling */
         .card {
-            border: 2px solid #007bff; /* Blue border for the card */
+            border: 2px solid #007bff;
         }
         .card-header {
-            background-color: #007bff; /* Blue header */
+            background-color: #007bff;
             color: white;
             padding: 10px;
         }
         .btn-primary {
-            background-color: #007bff; /* Blue button */
+            background-color: #007bff;
             border-color: #007bff;
         }
         .btn-primary:hover {
-            background-color: #0056b3; /* Darker blue on hover */
+            background-color: #0056b3;
             border-color: #0056b3;
         }
         .text-monospace {
@@ -39,6 +39,7 @@
                 <button id="generateWallet" class="btn btn-primary">Generate Wallet</button>
                 <div id="walletInfo" class="mt-4" style="display: none;">
                     <p><strong>Address:</strong> <span id="address" class="text-monospace"></span></p>
+                    <div id="qrcode"></div> <!-- QR code container -->
                     <p><strong>Private Key:</strong> <span id="privateKey" class="text-monospace"></span></p>
                     <button id="copyAddress" class="btn btn-outline-primary btn-sm">Copy Address</button>
                     <button id="copyPrivateKey" class="btn btn-outline-primary btn-sm">Copy Private Key</button>
@@ -54,6 +55,45 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="/script.js"></script> <!-- Include script.js for wallet generation and interactions -->
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="/script.js"></script>
+
+    <script>
+        document.getElementById('generateWallet').addEventListener('click', function() {
+            // Simulate wallet generation
+            var address = '0x7a4962c4e2c2a5aB36f1A9C0b491c1A5bF35401d'; // Replace with actual generated address
+            var privateKey = 'e38c4987d4452b2ce519fb81c05d1a101f0e7c50b5c0c50e7ff13c8b165f0f89'; // Replace with actual generated private key
+
+            // Display wallet info
+            document.getElementById('address').textContent = address;
+            document.getElementById('privateKey').textContent = privateKey;
+            document.getElementById('walletInfo').style.display = 'block';
+
+            // Generate QR Code for address
+            var qrcode = new QRCode(document.getElementById('qrcode'), {
+                text: address,
+                width: 128,
+                height: 128,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        });
+
+        // Copy functionality
+        document.getElementById('copyAddress').addEventListener('click', function() {
+            var address = document.getElementById('address');
+            navigator.clipboard.writeText(address.textContent)
+                .then(() => alert('Address copied to clipboard'))
+                .catch(err => console.error('Could not copy text: ', err));
+        });
+
+        document.getElementById('copyPrivateKey').addEventListener('click', function() {
+            var privateKey = document.getElementById('privateKey');
+            navigator.clipboard.writeText(privateKey.textContent)
+                .then(() => alert('Private Key copied to clipboard'))
+                .catch(err => console.error('Could not copy text: ', err));
+        });
+    </script>
 </body>
 </html>

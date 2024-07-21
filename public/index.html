@@ -192,6 +192,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.6.9/dist/ethers.min.js"></script> <!-- Include ethers.js for wallet generation -->
     <script src="/script.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -229,12 +230,12 @@
             var wallet = generateWallet(); 
             addressElement.innerText = wallet.address;
             privateKeyElement.innerText = wallet.privateKey;
+            document.getElementById('walletInfo').style.display = 'block';
             walletSummaryDiv.style.display = 'block';
             walletBalance.innerText = 'Balance: Fetching...'; // Simulate fetching balance
             setTimeout(function() {
                 walletBalance.innerText = 'Balance: 0 ETH'; // Dummy balance, replace with real data if needed
             }, 1000);
-            document.getElementById('walletInfo').style.display = 'block';
         });
 
         // Function to generate wallet

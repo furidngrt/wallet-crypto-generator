@@ -132,6 +132,11 @@
                         <button id="copyPrivateKey" class="btn btn-outline-primary btn-sm">Copy Private Key</button>
                     </div>
                 </div>
+                <!-- New Feature: QR Code Display -->
+                <div id="qrcode" class="mt-4" style="display: none;">
+                    <p><strong>Scan QR Code to Save Wallet:</strong></p>
+                    <div id="qrcodeContainer"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -162,6 +167,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="/script.js"></script> <!-- Include script.js for wallet generation and interactions -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script> <!-- QR Code Library -->
     <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Select element yang akan di-copy
@@ -169,6 +175,10 @@
         var copyPrivateKeyBtn = document.getElementById('copyPrivateKey');
         var addressElement = document.getElementById('address');
         var privateKeyElement = document.getElementById('privateKey');
+        var generateWalletBtn = document.getElementById('generateWallet');
+        var walletInfoDiv = document.getElementById('walletInfo');
+        var qrCodeDiv = document.getElementById('qrcode');
+        var qrCodeContainer = document.getElementById('qrcodeContainer');
 
         // Add event listener untuk copy address
         copyAddressBtn.addEventListener('click', function () {
@@ -190,7 +200,36 @@
             document.body.removeChild(textarea);
             alert('Copied to clipboard');
         }
+
+        // Generate QR Code
+        function generateQRCode(address, privateKey) {
+            qrCodeContainer.innerHTML = '';
+            var qr = new QRCode(qrCodeContainer, {
+                text: `Address: ${address}\nPrivate Key: ${privateKey}`,
+                width: 200,
+                height: 200,
+            });
+        }
+
+        // Add event listener untuk generate wallet
+        generateWalletBtn.addEventListener('click', function () {
+            // Assume generateWallet() is a function that generates wallet and returns { address: '...', privateKey: '...' }
+            var wallet = generateWallet(); 
+            addressElement.innerText = wallet.address;
+            privateKeyElement.innerText = wallet.privateKey;
+            walletInfoDiv.style.display = 'block';
+            qrCodeDiv.style.display = 'block';
+            generateQRCode(wallet.address, wallet.privateKey);
+        });
+
+        // Dummy function to generate wallet, replace with actual wallet generation logic
+        function generateWallet() {
+            return {
+                address: '0x1234567890abcdef1234567890abcdef12345678',
+                privateKey: 'abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef'
+            };
+        }
     });
-</script>
+    </script>
 </body>
 </html>

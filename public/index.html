@@ -90,6 +90,7 @@
             border-color: white !important; /* White color for toggler icon */
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.5.4/dist/ethers.min.js"></script> <!-- Add ethers.js library -->
 </head>
 <body>
     <!-- Navbar -->
@@ -169,67 +170,59 @@
     <script src="/script.js"></script> <!-- Include script.js for wallet generation and interactions -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script> <!-- QR Code Library -->
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Select element yang akan di-copy
-        var copyAddressBtn = document.getElementById('copyAddress');
-        var copyPrivateKeyBtn = document.getElementById('copyPrivateKey');
-        var addressElement = document.getElementById('address');
-        var privateKeyElement = document.getElementById('privateKey');
-        var generateWalletBtn = document.getElementById('generateWallet');
-        var walletInfoDiv = document.getElementById('walletInfo');
-        var qrCodeDiv = document.getElementById('qrcode');
-        var qrCodeContainer = document.getElementById('qrcodeContainer');
-
-        // Add event listener untuk copy address
+    document.addEventListener('DOMContentLoaded', function ()
+{
+var copyAddressBtn = document.getElementById('copyAddress');
+var copyPrivateKeyBtn = document.getElementById('copyPrivateKey');
+var addressElement = document.getElementById('address');
+var privateKeyElement = document.getElementById('privateKey');
+var walletInfoDiv = document.getElementById('walletInfo');
+var qrCodeDiv = document.getElementById('qrcode');
+var qrCodeContainer = document.getElementById('qrcodeContainer');
         copyAddressBtn.addEventListener('click', function () {
-            copyToClipboard(addressElement.innerText);
-        });
-
-        // Add event listener untuk copy private key
-        copyPrivateKeyBtn.addEventListener('click', function () {
-            copyToClipboard(privateKeyElement.innerText);
-        });
-
-        // Fungsi untuk copy text ke clipboard
-        function copyToClipboard(text) {
-            var textarea = document.createElement('textarea');
-            textarea.value = text;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-            alert('Copied to clipboard');
-        }
-
-        // Generate QR Code
-        function generateQRCode(address, privateKey) {
-            qrCodeContainer.innerHTML = '';
-            var qr = new QRCode(qrCodeContainer, {
-                text: `Address: ${address}\nPrivate Key: ${privateKey}`,
-                width: 200,
-                height: 200,
-            });
-        }
-
-        // Add event listener untuk generate wallet
-        generateWalletBtn.addEventListener('click', function () {
-            // Assume generateWallet() is a function that generates wallet and returns { address: '...', privateKey: '...' }
-            var wallet = generateWallet(); 
-            addressElement.innerText = wallet.address;
-            privateKeyElement.innerText = wallet.privateKey;
-            walletInfoDiv.style.display = 'block';
-            qrCodeDiv.style.display = 'block';
-            generateQRCode(wallet.address, wallet.privateKey);
-        });
-
-        // Dummy function to generate wallet, replace with actual wallet generation logic
-        function generateWallet() {
-            return {
-                address: '0x1234567890abcdef1234567890abcdef12345678',
-                privateKey: 'abcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdef'
-            };
-        }
+        copyToClipboard(addressElement.innerText);
     });
-    </script>
+
+    copyPrivateKeyBtn.addEventListener('click', function () {
+        copyToClipboard(privateKeyElement.innerText);
+    });
+
+    function copyToClipboard(text) {
+        var textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert('Copied to clipboard');
+    }
+
+    function generateQRCode(address, privateKey) {
+        qrCodeContainer.innerHTML = '';
+        var qr = new QRCode(qrCodeContainer, {
+            text: `Address: ${address}\nPrivate Key: ${privateKey}`,
+            width: 200,
+            height: 200,
+        });
+    }
+
+    function generateWallet() {
+        const wallet = ethers.Wallet.createRandom();
+        return {
+            address: wallet.address,
+            privateKey: wallet.privateKey
+        };
+    }
+
+    document.getElementById('generateWallet').addEventListener('click', function () {
+        var wallet = generateWallet(); 
+        addressElement.innerText = wallet.address;
+        privateKeyElement.innerText = wallet.privateKey;
+        walletInfoDiv.style.display = 'block';
+        qrCodeDiv.style.display = 'block';
+        generateQRCode(wallet.address, wallet.privateKey);
+    });
+});
+</script>
 </body>
 </html>

@@ -9,34 +9,34 @@
     <meta name="google-site-verification" content="885_pR2aM5ctU-mJc4mzbn2_q9kPI-SoCeFeqowr4yE" />
     <link rel="icon" href="https://cdn.pixabay.com/photo/2021/05/24/09/15/ethereum-6278326_960_720.png" type="image/x-icon">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Include Font Awesome -->
     <link rel="stylesheet" href="/style.css"> <!-- Make sure to create style.css for custom styling -->
     <style>
-        /* Add any additional custom styling here */
         body {
-            background-color: #f0f0f0; /* Light grey background */
+            background-color: #f0f0f0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .card {
-            border: 2px solid #007bff; /* Blue border for the card */
-            border-radius: 15px; /* Rounded corners */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            border: 2px solid #007bff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: box-shadow 0.3s ease;
         }
         .card:hover {
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
         .card-header {
-            background-color: #007bff; /* Blue header */
+            background-color: #007bff;
             color: white;
             padding: 20px;
-            border-top-left-radius: 15px; /* Rounded corners only on top */
+            border-top-left-radius: 15px;
             border-top-right-radius: 15px;
         }
         .card-body {
             padding: 20px;
         }
         .btn-primary {
-            background-color: #007bff; /* Blue button */
+            background-color: #007bff;
             border-color: #007bff;
             border-radius: 5px;
             padding: 12px 24px;
@@ -47,47 +47,76 @@
             transition: background-color 0.3s;
         }
         .btn-primary:hover {
-            background-color: #0056b3; /* Darker blue on hover */
+            background-color: #0056b3;
             border-color: #0056b3;
         }
         .text-monospace {
             font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-            word-break: break-all; /* Break long addresses/keys */
+            word-break: break-all;
         }
         .footer {
-            background-color: #007bff; /* Blue footer */
-            color: white; /* White text */
-            padding: 20px 0; /* Padding top and bottom */
+            background-color: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
         }
         .footer a {
-            color: white; /* White links */
+            color: white;
+            margin: 0 10px;
+            font-size: 24px;
+            transition: color 0.3s;
         }
         .footer a:hover {
-            text-decoration: underline; /* Underline on hover */
+            color: #f0f0f0;
+            text-decoration: none;
         }
 
-        /* Navbar styling */
         .navbar {
-            background-color: #007bff !important; /* Blue navbar */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            background-color: #007bff !important;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .navbar-brand {
-            color: white !important; /* White brand text */
+            color: white !important;
             font-weight: bold;
             font-size: 24px;
         }
         .navbar-nav .nav-link {
-            color: white !important; /* White links */
+            color: white !important;
             font-size: 18px;
             letter-spacing: 1px;
             transition: color 0.3s;
             margin-left: 20px;
         }
         .navbar-nav .nav-link:hover {
-            color: #f0f0f0 !important; /* Light grey on hover */
+            color: #f0f0f0 !important;
         }
         .navbar-toggler {
-            border-color: white !important; /* White color for toggler icon */
+            border-color: white !important;
+        }
+
+        /* Graphical Wallet Summary styling */
+        .wallet-summary {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .wallet-summary h3 {
+            margin-bottom: 15px;
+        }
+        .graphical-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .graphical-info img {
+            width: 50px;
+            height: 50px;
+        }
+        .graphical-info p {
+            font-size: 16px;
+            color: #333;
         }
     </style>
 </head>
@@ -131,6 +160,14 @@
                         <button id="copyAddress" class="btn btn-outline-primary btn-sm mr-2">Copy Address</button>
                         <button id="copyPrivateKey" class="btn btn-outline-primary btn-sm">Copy Private Key</button>
                     </div>
+                    <!-- Graphical Wallet Summary -->
+                    <div id="walletSummary" class="wallet-summary mt-5" style="display: none;">
+                        <h3>Wallet Summary</h3>
+                        <div class="graphical-info">
+                            <img src="https://cdn.pixabay.com/photo/2020/04/09/18/59/ethereum-5010356_960_720.png" alt="Ethereum Logo">
+                            <p id="walletBalance">Balance: Calculating...</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -153,8 +190,8 @@
     <!-- Footer -->
     <footer class="footer mt-5">
         <div class="container text-center">
-            <p class="mb-0">&copy; 2024 <a href="#" class="text-white">furidngrt</a> | Powered by <a href="#" class="text-white">Crypto Wallet Generator</a></p>
-            <div class="social-icons mt-3">
+            <p class="mb-2">&copy; 2024 <a href="#" class="text-white">furidngrt</a> | Powered by <a href="#" class="text-white">Crypto Wallet Generator</a></p>
+            <div class="mt-3">
                 <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
                 <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
@@ -167,7 +204,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="/script.js"></script> <!-- Include script.js for wallet generation and interactions -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.6.9/ethers.min.js"></script>
+    <script src="/script.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Select element yang akan di-copy
@@ -175,6 +213,8 @@
         var copyPrivateKeyBtn = document.getElementById('copyPrivateKey');
         var addressElement = document.getElementById('address');
         var privateKeyElement = document.getElementById('privateKey');
+        var walletSummaryDiv = document.getElementById('walletSummary');
+        var walletBalance = document.getElementById('walletBalance');
 
         // Add event listener untuk copy address
         copyAddressBtn.addEventListener('click', function () {
@@ -196,7 +236,29 @@
             document.body.removeChild(textarea);
             alert('Copied to clipboard');
         }
+
+        // Add event listener untuk generate wallet
+        document.getElementById('generateWallet').addEventListener('click', function () {
+            var wallet = generateWallet(); 
+            addressElement.innerText = wallet.address;
+            privateKeyElement.innerText = wallet.privateKey;
+            document.getElementById('walletInfo').style.display = 'block';
+            walletSummaryDiv.style.display = 'block';
+            walletBalance.innerText = 'Balance: Fetching...'; // Simulate fetching balance
+            setTimeout(function() {
+                walletBalance.innerText = 'Balance: 0 ETH'; // Dummy balance, replace with real data if needed
+            }, 1000);
+        });
+
+        // Function to generate wallet
+        function generateWallet() {
+            const wallet = ethers.Wallet.createRandom();
+            return {
+                address: wallet.address,
+                privateKey: wallet.privateKey
+            };
+        }
     });
-</script>
+    </script>
 </body>
 </html>
